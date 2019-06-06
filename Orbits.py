@@ -101,5 +101,5 @@ while True:
 
         screen.blit(text, textRect)
 
-        pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(pos_a[0], pos_a[1], m_a, m_a))
+        pygame.draw.circle(screen, (255, 255, 255), (int(pos_a[0]), int(pos_a[1])), int(m_a/2))
     pygame.display.flip()
