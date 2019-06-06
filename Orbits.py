@@ -18,10 +18,10 @@ def calculate_forces(pos_a, pos_b, m_a, m_b):
     radius_a = int(m_a / 2)
     radius_b = int(m_b / 2)
     sum_radiuses = radius_a + radius_b
-    if
 
     x_diff = pos_b[0] - pos_a[0]
     y_diff = pos_b[1] - pos_a[1]
+
     hypotenuse = math.sqrt(((x_diff) ** 2 + (y_diff) ** 2))
     sin = x_diff / hypotenuse
     cos = y_diff / hypotenuse
@@ -29,13 +29,18 @@ def calculate_forces(pos_a, pos_b, m_a, m_b):
     fx = f * sin
     fy = f * cos
 
+    if x_diff < sum_radiuses:
+        fx *= -1
+    if y_diff < sum_radiuses:
+        fy *= -1
+
     return fx, fy
 
 
 G = 6.67408e-11 * 100_000_000  # Otherwise the bodies would not move given the small value of gravitational constant
-NUM_OF_BODIES = 100
-WIDTH = 500
-HEIGHT = 500
+NUM_OF_BODIES = 10
+WIDTH = 700
+HEIGHT = 700
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BLUE = (109, 196, 255)
@@ -56,6 +61,7 @@ for i in range(NUM_OF_BODIES):  # For each item in NUM_OF_BODIES,
 # bodies.append(Body([340,700],[0,0],[0,0],24))
 
 pygame.init()
+pygame.display.set_caption("Orbits")
 size = WIDTH, HEIGHT
 screen = pygame.display.set_mode(size)
 
