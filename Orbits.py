@@ -15,9 +15,10 @@ class Body:
 
 
 def calculate_forces(pos_a, pos_b, m_a, m_b):
-    radius_a = m_a / 2
-    radius_b = m_b / 2
+    radius_a = int(m_a / 2)
+    radius_b = int(m_b / 2)
     sum_radiuses = radius_a + radius_b
+    if
 
     x_diff = pos_b[0] - pos_a[0]
     y_diff = pos_b[1] - pos_a[1]
