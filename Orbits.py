@@ -29,18 +29,18 @@ def calculate_forces(pos_a, pos_b, m_a, m_b):
     fx = f * sin
     fy = f * cos
 
-    if x_diff < sum_radiuses:
-        fx *= -1
-    if y_diff < sum_radiuses:
-        fy *= -1
+    if x_diff <= sum_radiuses:
+       fx *= -1
+    if y_diff <= sum_radiuses:
+       fy *= -1
 
     return fx, fy
 
 
-G = 6.67408e-11 * 100_000_000  # Otherwise the bodies would not move given the small value of gravitational constant
-NUM_OF_BODIES = 10
-WIDTH = 700
-HEIGHT = 700
+G = 6.67408e-11 * 10_00_000_000  # Otherwise the bodies would not move given the small value of gravitational constant
+NUM_OF_BODIES = 200
+WIDTH = 400
+HEIGHT = 400
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BLUE = (109, 196, 255)
@@ -108,5 +108,5 @@ while True:
 
         screen.blit(text, textRect)
 
-        pygame.draw.circle(screen, (255, 255, 255), (int(pos_a[0]), int(pos_a[1])), int(m_a/2))
+        pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(pos_a[0], pos_a[1], m_a, m_a))
     pygame.display.flip()
