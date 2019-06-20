@@ -15,9 +15,6 @@ class Body:
 
 
 def calculate_forces(pos_a, pos_b, m_a, m_b):
-    radius_a = int(m_a / 2)
-    radius_b = int(m_b / 2)
-    sum_radiuses = radius_a + radius_b
 
     x_diff = pos_b[0] - pos_a[0]
     y_diff = pos_b[1] - pos_a[1]
@@ -28,11 +25,6 @@ def calculate_forces(pos_a, pos_b, m_a, m_b):
     f = G * m_a * m_b / hypotenuse ** 2
     fx = f * sin
     fy = f * cos
-
-    if x_diff <= sum_radiuses:
-       fx *= -1
-    if y_diff <= sum_radiuses:
-       fy *= -1
 
     return fx, fy
 
@@ -87,6 +79,10 @@ while True:
             fy_total += fy
 
         body_a_acceleration = body_a.a
+        
+        
+        fx_total, fy_total = calculate_collisions(fx_total, fy_total, body_a.m, body_b.m)
+
 
         body_a_acceleration[0] = fx_total / m_a
         body_a_acceleration[1] = fy_total / m_a
