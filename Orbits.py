@@ -28,6 +28,9 @@ def calculate_forces(pos_a, pos_b, m_a, m_b):
 
     return fx, fy
 
+def calculate_collisions(fx_total, fy_total, body_a.m, body_b.m):
+    
+
 
 G = 6.67408e-11 * 10_00_000_000  # Otherwise the bodies would not move given the small value of gravitational constant
 NUM_OF_BODIES = 200
