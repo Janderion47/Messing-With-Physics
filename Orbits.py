@@ -5,6 +5,14 @@ import math
 import sys
 import pygame
 
+G = 6.67408e-11 * 100_000_000  # Otherwise the bodies would not move given the small value of gravitational constant
+NUM_OF_BODIES = 200
+WIDTH = 400
+HEIGHT = 400
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+BLUE = (109, 196, 255)
+
 
 class Body:
     def __init__(self, pos, a, v, m):
@@ -28,17 +36,31 @@ def calculate_forces(pos_a, pos_b, m_a, m_b):
 
     return fx, fy
 
-def calculate_collisions(fx_total, fy_total, body_a.m, body_b.m):
-    
 
+def calculate_collisions(fx_total, fy_total, a_m, b_m, a_pos, b_pos):
+    fx_new, fy_new = fx_total, fy_total
+    sum_radiuses = (a_m/2)+(b_m/2)
 
-G = 6.67408e-11 * 10_00_000_000  # Otherwise the bodies would not move given the small value of gravitational constant
-NUM_OF_BODIES = 200
-WIDTH = 400
-HEIGHT = 400
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-BLUE = (109, 196, 255)
+    ax = a_pos[0]
+    ay = a_pos[1]
+    bx = b_pos[0]
+    by = b_pos[1]
+
+    if (ax > bx) and (ax-bx <= sum_radiuses):
+        if fx_new < 0:
+            fx_new *= 0
+    if (ax < bx) and (bx-ax <= sum_radiuses):
+        if fx_new > 0:
+            fx_new *= 0
+    if (ay > by) and (ay-by <= sum_radiuses):
+        if fy_new < 0:
+            fy_new *= 0
+    if (ay < by) and (by-ay <= sum_radiuses):
+        if fy_new > 0:
+            fy_new *= 0
+
+    return fx_new, fy_new
+
 
 bodies = []
 for i in range(NUM_OF_BODIES):  # For each item in NUM_OF_BODIES,
@@ -66,7 +88,8 @@ textRect = text.get_rect()
 while True:
     screen.fill(BLACK)
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
+        if event.type == pygame.QUIT:
+            sys.exit()
 
     for body_a in bodies:
         pos_a = body_a.pos
@@ -81,11 +104,9 @@ while True:
             fx_total += fx
             fy_total += fy
 
-        body_a_acceleration = body_a.a
-        
-        
-        fx_total, fy_total = calculate_collisions(fx_total, fy_total, body_a.m, body_b.m)
+            fx_total, fy_total = calculate_collisions(fx_total, fy_total, body_a.m, body_b.m, body_a.pos, body_b.pos)
 
+        body_a_acceleration = body_a.a
 
         body_a_acceleration[0] = fx_total / m_a
         body_a_acceleration[1] = fy_total / m_a
