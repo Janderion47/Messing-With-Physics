@@ -6,7 +6,7 @@ import sys
 import pygame
 
 G = 6.67408e-11 * 100_000_000  # Otherwise the bodies would not move given the small value of gravitational constant
-NUM_OF_BODIES = 200
+NUM_OF_BODIES = 20
 WIDTH = 400
 HEIGHT = 400
 WHITE = (255, 255, 255)
