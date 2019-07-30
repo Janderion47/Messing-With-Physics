@@ -1,8 +1,9 @@
 # Code based off u/OrionPixels from
 # https://github.com/anishsatalkar/python_gravity_simulation_pygame/blob/master/gravity_simulation.py
-import random
 import math
+import random
 import sys
+
 import pygame
 
 G = 6.67408e-11 * 100_000_000  # Otherwise the bodies would not move given the small value of gravitational constant
@@ -47,25 +48,33 @@ def calculate_collisions(fx_total, fy_total, a_m, b_m, a_pos, b_pos):
     by = b_pos[1]
 
     if (ax > bx) and (ax-bx <= sum_radiuses):
-        if fx_new < 0:
+        if fx_new == 0:
             fx_new *= 0
+        elif fx_new < 0:
+            fx_new *= -1
     if (ax < bx) and (bx-ax <= sum_radiuses):
-        if fx_new > 0:
+        if fx_new == 0:
             fx_new *= 0
+        elif fx_new > 0:
+            fx_new *= -1
     if (ay > by) and (ay-by <= sum_radiuses):
-        if fy_new < 0:
+        if fy_new == 0:
             fy_new *= 0
+        elif fy_new < 0:
+            fy_new *= -1
     if (ay < by) and (by-ay <= sum_radiuses):
-        if fy_new > 0:
+        if fy_new == 0:
             fy_new *= 0
+        elif fy_new > 0:
+            fy_new *= -1
 
     return fx_new, fy_new
 
 
 bodies = []
 for i in range(NUM_OF_BODIES):  # For each item in NUM_OF_BODIES,
-    px = random.randint(10, WIDTH - 10)  # (Create variable of the x position)
-    py = random.randint(10, HEIGHT - 10)  # (Create variable of the y position)
+    px = random.randint(20, WIDTH - 20)  # (Create variable of the x position)
+    py = random.randint(20, HEIGHT - 20)  # (Create variable of the y position)
     m = random.randint(1, 25)  # (Create variable of the mass)
     bodies.append(Body([px, py], [0, 0], [0, 0], m))  # Add a Body with the information of the variables
 
